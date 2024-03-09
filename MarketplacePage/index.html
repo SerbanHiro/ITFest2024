@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marketplace pentru obiecte refolosite</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://unpkg.com/tailwindcss@2.2.19/dist/tailwind.min.css"/>
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700" rel="stylesheet" />
+</head>
+<body class="font-sans leading-normal tracking-normal bg-gray-100 flex flex-col h-screen">
+
+    <!-- DO NOT TOUCH -->
+
+    <!--Nav-->
+    <nav id="header" class="fixed w-full h-36 top-0 bg-gradient-to-r from-green-200 to-green-400">
+        <div class="container mx-auto flex justify-center items-center">
+            <div>
+                <div class="container mx-auto flex flex-wrap items-center justify-between mt-0 py-3.5">
+                    <div class="pl-4 items-center">
+                        <a class="text-white no-underline hover:no-underline font-bold text-2xl lg:text-4xl" href="#">
+                            <!-- SVG Logo here -->
+                            Waste wizard
+                        </a>
+                    </div>
+                    <div class="block lg:hidden pr-4">
+                        <button id="nav-toggle" class="flex items-center p-1 text-pink-800 hover:text-gray-900 focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out">
+                            <svg class="fill-current h-6 w-6" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                <title>Menu</title>
+                                <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Rest of the navigation and content -->
+        <div class="w-full flex-grow lg:flex lg:items-center lg:w-auto hidden lg:mt-0 bg-white lg:bg-transparent text-black p-4 lg:p-0" id="nav-content">
+            <ul class="list-reset lg:flex justify-center flex-1 items-center">
+              <li class="mr-3">
+                <button class="mx-auto lg:mx-0 hover:underline bg-white text-gray-800 font-bold rounded-full py-4 px-8 shadow opacity-75 focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out">Your potions</button>
+              </li>
+              <li class="mr-3">
+                <button class="mx-auto lg:mx-0 hover:underline bg-white text-gray-800 font-bold rounded-full py-4 px-8 shadow opacity-75 focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out">Leaderboard</button>
+              </li>
+              <li class="mr-3">
+                <button class="mx-auto lg:mx-0 hover:underline bg-white text-gray-800 font-bold rounded-full py-4 px-8 shadow opacity-75 focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out">Go Recycle</button>
+              </li>
+              <li class="mr-3">
+                <button class="mx-auto lg:mx-0 hover:underline bg-white text-gray-800 font-bold rounded-full py-4 px-8 shadow opacity-75 focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out">Hire a Waste wizard</button>
+              </li>
+              <li class="mr-3">
+                <button class="mx-auto lg:mx-0 hover:underline bg-white text-gray-800 font-bold rounded-full py-4 px-8 shadow opacity-75 focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out">Marketplace</button>
+              </li>
+              <li class="mr-3">
+                <button class="mx-auto lg:mx-0 hover:underline bg-white text-gray-800 font-bold rounded-full py-4 px-8 shadow opacity-75 focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out">Identify trash</button>
+              </li>
+              <li>
+                <button class="mx-auto lg:mx-0 hover:underline bg-white text-gray-800 font-bold rounded-full py-4 px-8 shadow opacity-75 focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out">Action</button>
+                </li>
+            </ul>
+          </div>
+      </div>
+    </nav>
+    
+    <!-- Hero section -->
+    <div class="h-24">
+      <!-- Hero content -->
+    </div>
+
+    <!-- Booking form section -->
+    <section class="flex-grow bg-white border-b py-8">
+      <div class="container mx-auto m-8 h-full">
+          <h2 class="w-full my-2 text-5xl font-bold leading-tight text-center text-gray-800">
+              Marketplace
+          </h2>
+          <div class="w-full mb-4">
+              <div class="h-1 mx-auto bg-gradient-to-r from-green-200 to-green-400 w-64 opacity-25 my-0 py-0 rounded-t"></div>
+          </div>
+  
+          <div class="flex justify-center">
+              <button class="tablink mx-4" onclick="openTab('Vinde')">Vinde</button>
+              <button class="tablink mx-4" onclick="openTab('Cumpara')">Cumpara</button>
+          </div>
+  
+          <div id="Vinde" class="tabcontent">
+              <section id="post">
+                <h2 class="text-center font-bold" style="margin-top:-1.2rem;">Postează un obiect</h2>
+                  <form id="post-form" enctype="multipart/form-data">
+                      <input type="text" id="title" placeholder="Titlu" required>
+                      <input type="text" id="description" placeholder="Descriere" required>
+                      <input type="file" id="image" accept="image/*" required>
+                      <button type="submit">Postează</button>
+                  </form>
+              </section>
+          </div>      
+          
+          <div id="Cumpara" class="tabcontent">
+              <section id="cumpara-listings" class="text-center font-bold">
+                  <h1>Cumpară un obiect</h1>
+                  <ul id="cumpara-listings-container"></ul>
+              </section>
+              <div id="listings-container" class="grid grid-cols-3 gap-4 text-center"></div> 
+          </div>
+      </div>
+  </section>
+
+
+    <script src="script.js"></script>
+</body>
+</html>
