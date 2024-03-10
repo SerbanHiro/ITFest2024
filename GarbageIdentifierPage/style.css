@@ -1,0 +1,71 @@
+body {
+    color: rgb(209, 205, 199);
+    background-color: rgb(24, 26, 27);
+}
+
+button, input, optgroup, select, textarea{
+    color: rgb(200, 195, 188);
+    background-color: rgb(19, 21, 22);
+}
+
+.navbar-brand {
+    font-size: 1.5rem;
+}
+
+.bd-placeholder-img {
+    font-size: 1.125rem;
+    text-anchor: middle;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+/* @media (min-width: 768px) {
+    .bd-placeholder-img-lg {
+        font-size: 3.5rem;
+    }
+} */
+
+.progress-bar #loading-progress {
+    display: none; 
+}
+
+main.container {
+    margin-top: 5rem;
+}
+
+/* Loading Progress */
+.progress-bar {
+    width: 100%;
+}
+
+/* Prediction Settings */
+#prediction-type {
+    width: 100%;
+}
+
+/* Image Input and Predict Button */
+#image-selector {
+    width: 100%;
+}
+
+/* Image and Predictions */
+.my-4 {
+    border-top: 1px solid #dee2e6;
+}
+
+#selected-image {
+    width: 100%;
+    height: auto;
+    margin-left: 0.75rem; /* Adjust as needed */
+}
+
+#prediction-list {
+    padding-left: 1.25rem; /* Adjust as needed */
+}
+
+/* Additional Styling */
+.row {
+    margin-bottom: 1rem; /* Adjust as needed */
+}
