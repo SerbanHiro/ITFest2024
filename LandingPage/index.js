@@ -64,6 +64,7 @@ const maxLat= 45.8419;
 
 var pubeleMenajer = [];
 var pubeleReciclabil = [];
+var pubeleSticla = [];
 
 const timisoaraPerimeterCoordinates = [
     [21.19425807451313, 45.77653322891817],
@@ -114,7 +115,86 @@ const timisoaraPerimeterCoordinates = [
     [21.19425807451313, 45.77653322891817]
 ];
 
+var userLat=-1;
+var userLng=-1;
 
+var tempLat=-1;
+var tempLng=-1;
+
+window.onload = async function() {
+    let path = window.location.href;
+    if(!path.includes("?")) return;
+    var material = path.split("?")[1];
+    switch(material.toLowerCase()) {
+        case "glass":  {
+            if ("geolocation" in navigator) {
+                navigator.geolocation.getCurrentPosition(async function(position) {
+                    const userLat = position.coords.latitude;
+                    const userLng = position.coords.longitude;
+
+                    // Funcția pentru calcularea distanței dintre două puncte pe sferă (Haversine formula)
+                    function haversineDistance(lat1, lon1, lat2, lon2) {
+                        const R = 6371; // Raza Pământului în kilometri
+                        const dLat = (lat2 - lat1) * Math.PI / 180;
+                        const dLon = (lon2 - lon1) * Math.PI / 180;
+                        const a =
+                            Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+                            Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
+                            Math.sin(dLon / 2) * Math.sin(dLon / 2);
+                        const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+                        const d = R * c; // Distanta in km  
+                        return d;
+                    }
+
+                    // Cel mai mare număr posibil pentru distanță
+                    let minDistance = Number.MAX_VALUE;
+                    // Pubela cea mai apropiată
+                    let nearestBin;
+
+                    // Iterăm prin toate pubelile de sticlă pentru a găsi cea mai apropiată
+                    for (const bin of pubeleSticla) {
+                        const distance = haversineDistance(userLat, userLng, bin.lngLat[1], bin.lngLat[0]);
+                        if (distance < minDistance) {
+                            minDistance = distance;
+                            nearestBin = bin;
+                        }
+                    }
+
+                    console.log(nearestBin);
+
+                    tempLat = nearestBin.lngLat[1];
+                    tempLng = nearestBin.lngLat[0];
+                    
+                    // map.flyTo({
+                    //     center: [nearestBin.lngLat[1], nearestBin.lngLat[0]], // Coordonatele markerului pubelii de sticlă
+                    //     zoom: 15, // Nivelul de zoom al hărții
+                    //     essential: true // Indicăm că este o acțiune esențială pentru harta
+                    // });
+
+                    // nearestBin conține acum cea mai apropiată pubelă de sticlă
+                    console.log("Cea mai apropiată pubelă de sticlă este la o distanță de: " + minDistance.toFixed(2) + " km");
+                    console.log("Coordonatele publei: Latitudine - " + nearestBin.lngLat[1] + ", Longitudine - " + nearestBin.lngLat[0]);
+                });
+            } else {
+                console.log("Geolocation nu este suportat de acest browser.");
+            }
+        }
+            break;
+        case "plastic":
+        case "metal":
+        case "paper":
+        case "cardboard":
+
+            break;
+        case "shoes":
+        case "clothes":
+
+            break;
+        case "battery":
+
+            break;
+    }
+}
  
 function isPointInPath(y, x) {
     let c = false;
@@ -142,6 +222,9 @@ function isPointInPath(y, x) {
 function success(position) {
     const latitude  = position.coords.latitude;
     const longitude = position.coords.longitude;
+
+    userLat=latitude;
+    userLng=longitude;
 
     const map = new mapboxgl.Map({
         container: 'map',
@@ -174,14 +257,15 @@ function success(position) {
                 "fill-opacity": 0
             }
         });
+        if(tempLat!=-1&&tempLng!=-1) {
+            map.flyTo({
+                center: [tempLng, tempLat], 
+                zoom: 17, 
+                essential: true 
+            });
+            tempLat=tempLng=-1;
+        }
     });
-    
-
-
-
-    // Numărul de markeri de generat
-    // Define an array to store the markers
-
 
 const numMarkers = 750;
 // Generăm markerii în interiorul poligonului Timișoarei
@@ -209,7 +293,7 @@ for (let i = 0; i < numMarkers; i++) {
         const pubelaMenajerImg = new Image();
         pubelaMenajerImg.onload = function() {
             // După ce imaginea s-a încărcat, adăugați markerul în vector și pe hartă
-            console.log(pubelaMenajer.fillRate);
+            // console.log(pubelaMenajer.fillRate);
             const newMarker = new mapboxgl.Marker(pubelaMenajerImg, {
                 anchor: 'center',
                 width: pubelaMenajer.width,
@@ -252,7 +336,8 @@ for (let i = 0; i < numMarkers; i++) {
     };
     pubelaMenajerImg.src = pubelaMenajer.imageSrc;
 });
-    const numMarkersRecy = 100;
+    
+const numMarkersRecy = 100;
 
     //duplica codul de mai sus pentru o pubela de tip reciclabil
     for (let i = 0; i < numMarkersRecy; i++) {
@@ -263,7 +348,7 @@ for (let i = 0; i < numMarkers; i++) {
         // Verificăm dacă markerul generat se află în interiorul poligonului Timișoarei
         // const isInsideTimisoara = turf.booleanPointInPolygon(turf.point([randomLng, randomLat]), turf.polygon([timisoaraPerimeterCoordinates]));
         const isInsideTimisoara = isPointInPath(randomLat,randomLng);
-        console.log(isInsideTimisoara);
+        // console.log(isInsideTimisoara);
         if (isInsideTimisoara) {
             const pubelaReciclabil = {
                 lngLat: [randomLng, randomLat],
@@ -272,7 +357,7 @@ for (let i = 0; i < numMarkers; i++) {
                 height: 60,
                 fillRate: fillRate
             };
-            console.log(pubelaReciclabil);
+           // console.log(pubelaReciclabil);
             pubeleReciclabil.push(pubelaReciclabil); // Adaugă markerul în vectorul de marcaje
         }
     }
@@ -281,7 +366,7 @@ for (let i = 0; i < numMarkers; i++) {
         const pubelaReciclabilImg = new Image();
         pubelaReciclabilImg.onload = function() {
             // După ce imaginea s-a încărcat, adăugați markerul în vector și pe hartă
-            console.log(pubelaReciclabil.fillRate);
+            // console.log(pubelaReciclabil.fillRate);
             const newMarker = new mapboxgl.Marker(pubelaReciclabilImg, {
                 anchor: 'center',
                 width: pubelaReciclabil.width,
@@ -325,6 +410,80 @@ for (let i = 0; i < numMarkers; i++) {
     pubelaReciclabilImg.src = pubelaReciclabil.imageSrc;
     });
     
+
+    const numMarkersGlass = 100;
+
+    //duplica codul de mai sus pentru o pubela de tip reciclabil
+    for (let i = 0; i < numMarkersGlass; i++) {
+        const randomLng = Math.random() * (maxLng - minLng) + minLng;
+        const randomLat = Math.random() * (maxLat - minLat) + minLat;
+        
+        const fillRate = Math.floor(Math.random() * 100) + 1;
+        // Verificăm dacă markerul generat se află în interiorul poligonului Timișoarei
+        // const isInsideTimisoara = turf.booleanPointInPolygon(turf.point([randomLng, randomLat]), turf.polygon([timisoaraPerimeterCoordinates]));
+        const isInsideTimisoara = isPointInPath(randomLat,randomLng);
+        // console.log(isInsideTimisoara);
+        if (isInsideTimisoara) {
+            const pubelaSticla = {
+                lngLat: [randomLng, randomLat],
+                imageSrc: '../Images/dumpster-glass.svg',
+                width: 60,
+                height: 60,
+                fillRate: fillRate
+            };
+            // console.log(pubelaSticla);
+            pubeleSticla.push(pubelaSticla); // Adaugă markerul în vectorul de marcaje
+        }
+    }
+
+    pubeleSticla.forEach((pubelaSticla, index, fillRate) => {
+        const pubelaSticlaImg = new Image();
+        pubelaSticlaImg.onload = function() {
+            // După ce imaginea s-a încărcat, adăugați markerul în vector și pe hartă
+            // console.log(pubelaSticla.fillRate);
+            const newMarker = new mapboxgl.Marker(pubelaSticlaImg, {
+                anchor: 'center',
+                width: pubelaSticla.width,
+                height: pubelaSticla.height
+            })
+                .setLngLat(pubelaSticla.lngLat)
+                .addTo(map)
+                //in locul setPopup de mai jos vreau la setText sa fie  pubela + index scris mai mare si sub sa fie rata de umplere a pubelei
+
+
+                .setPopup(new mapboxgl.Popup().setHTML(`
+                    <div>
+                        <div>Pubela ${index}</div>
+                        <div id="showFill">Rată de umplere: ${pubelaSticla.fillRate}</div>
+                        <form id="form-dimensiune">
+                            <label for="dimensiune">Selectează dimensiunea gunoiului:</label><br>
+                            <select id="dimensiune" name="dimensiune">
+                                <option value="mica">Mică</option>
+                                <option value="medie">Medie</option>
+                                <option value="mare">Mare</option>
+                            </select><br><br>
+                            <button type="button" onclick="aruncaGunoiReciclabil(${index})">Arunca Gunoi</button>
+                        </form>
+                    </div>
+                `));
+            
+ // Adaugă un popup care indică indexul
+        pubeleSticla.push(newMarker);
+
+        // Mărește zona de clic pentru marker
+        const clickZoneRadius = 50; // Poți ajusta acest parametru în funcție de dimensiunea dorită a zonei de clic
+        const clickZone = document.createElement('div');
+        clickZone.style.width = clickZone.style.height = `${clickZoneRadius * 4}px`;
+        clickZone.style.borderRadius = '75%';
+        clickZone.style.position = 'absolute';
+        clickZone.style.top = `-${clickZoneRadius}px`;
+        clickZone.style.left = `-${clickZoneRadius}px`;
+        clickZone.style.cursor = 'pointer';
+        newMarker.getElement().appendChild(clickZone);
+    };
+    pubelaSticlaImg.src = pubelaSticla.imageSrc;
+    });
+
 
     // Add a popup to the marker
     const popup = new mapboxgl.Popup({ offset: 15 })
@@ -404,7 +563,7 @@ function error() {
         // Verificăm dacă markerul generat se află în interiorul poligonului Timișoarei
         // const isInsideTimisoara = turf.booleanPointInPolygon(turf.point([randomLng, randomLat]), turf.polygon([timisoaraPerimeterCoordinates]));
         const isInsideTimisoara = isPointInPath(randomLat,randomLng);
-        console.log(isInsideTimisoara);
+        // console.log(isInsideTimisoara);
         if (isInsideTimisoara) {
             const pubelaMenajerImg = new Image();
             pubelaMenajerImg.onload = function() {
@@ -432,7 +591,7 @@ function error() {
         // Verificăm dacă markerul generat se află în interiorul poligonului Timișoarei
         // const isInsideTimisoara = turf.booleanPointInPolygon(turf.point([randomLng, randomLat]), turf.polygon([timisoaraPerimeterCoordinates]));
         const isInsideTimisoara = isPointInPath(randomLat,randomLng);
-        console.log(isInsideTimisoara);
+        // console.log(isInsideTimisoara);
         if (isInsideTimisoara) {
             const pubelaReciclabilImg = new Image();
             pubelaReciclabilImg.onload = function() {

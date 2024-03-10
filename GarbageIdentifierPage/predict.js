@@ -75,7 +75,7 @@ async function loadModel(selectedOption) {
         selectedOption = "Trash";
     }
 
-    const defaultPath = `../model/${selectedOption}/model.json`;
+    const defaultPath = `../model/model/${selectedOption}/model.json`;
 
     try {
         model = await tf.loadGraphModel(defaultPath);
@@ -126,6 +126,11 @@ async function renderImage(image, modelSize, selectedOption) {
     });
     $("#prediction-list-most-probable").append(`<div style="font-size:30px">${mostProbable}</div>`);
     console.log(mostProbable);
+    $("#nearest-trash-button").removeClass("hidden");
+    $("#nearest-trash-button").click(function() {
+        // Redirecționează utilizatorul către pagina "nearest-trash-can.html" (sau ce altă pagină doriți)
+        window.location.href = `../LandingPage/index.html?${mostProbable}`;
+    });
 }
 
 $("#predict-button").click(async function () {

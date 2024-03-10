@@ -15,52 +15,45 @@
 <body class="font-sans leading-normal tracking-normal bg-gray-100 flex flex-col h-screen">
 
     <!-- Nav section -->
-    <nav id="header" class="sticky w-full h-36 top-0 bg-gradient-to-r from-green-200 to-green-400">
-        <div class="container mx-auto flex justify-center items-center">
-            <div>
-                <div class="container mx-auto flex flex-wrap items-center justify-between mt-0 py-3.5">
-                    <div class="pl-4 items-center">
-                        <a class="text-white no-underline hover:no-underline font-bold text-2xl lg:text-4xl" href="#">
-                            <!-- SVG Logo here -->
-                            Waste wizard
-                        </a>
-                    </div>
-                    <div class="hidden lg:block pr-4">
-                        <button id="nav-toggle" class="flex items-center p-1 text-pink-800 hover:text-gray-900 focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out">
-                            <svg class="fill-current h-6 w-6" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                <title>Menu</title>
-                                <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z" />
-                            </svg>
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <!-- Rest of the navigation and content -->
-        <div class="w-full flex-grow lg:flex lg:items-center lg:w-auto mb-16" id="nav-content">
-            <ul class="list-reset lg:flex justify-center flex-1 items-center">
-              <li class="mr-3">
-                <button class="mx-auto lg:mx-0 hover:underline bg-white text-gray-800 font-bold rounded-full py-4 px-8 shadow opacity-75 focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out">Your potions</button>
-              </li>
-              <li class="mr-3">
-                <button class="mx-auto lg:mx-0 hover:underline bg-white text-gray-800 font-bold rounded-full py-4 px-8 shadow opacity-75 focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out">Leaderboard</button>
-              </li>
-              <li class="mr-3">
-                <button class="mx-auto lg:mx-0 hover:underline bg-white text-gray-800 font-bold rounded-full py-4 px-8 shadow opacity-75 focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out">Go Recycle</button>
-              </li>
-              <li class="mr-3">
-                <button class="mx-auto lg:mx-0 hover:underline bg-white text-gray-800 font-bold rounded-full py-4 px-8 shadow opacity-75 focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out">Hire a Waste wizard</button>
-              </li>
-              <li class="mr-3">
-                <button class="mx-auto lg:mx-0 hover:underline bg-white text-gray-800 font-bold rounded-full py-4 px-8 shadow opacity-75 focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out">Marketplace</button>
-              </li>
-              <li class="mr-3">
-                <button class="mx-auto lg:mx-0 hover:underline bg-white text-gray-800 font-bold rounded-full py-4 px-8 shadow opacity-75 focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out">Identify trash</button>
-              </li>
-            </ul>
+    <nav id="header" class="sticky w-full h-28 top-0 bg-gradient-to-r from-green-200 to-green-400 rounded-b-3xl">
+      <div class="container mx-auto flex justify-center items-center">
+          <div>
+              <div class="container mx-auto flex flex-wrap items-center justify-between mt-0 py-2">
+                  <div class="items-center">
+                      <a class="text-white no-underline hover:no-underline font-bold text-1xl" href="../LandingPage/index.html">
+                          <!-- SVG Logo here -->
+                          Waste wizard
+                      </a>
+                  </div>
+              </div>
           </div>
-      </nav>
+      </div>
+      
+      <!-- Rest of the navigation and content -->
+      <div class="w-full flex-grow lg:flex lg:items-center lg:w-auto mb-16" id="nav-content">
+          <ul class="list-reset lg:flex justify-center flex-1 items-center">
+            <li class="mr-3">
+              <a href="../PotionsPage/index.html" target="_self" class="mx-auto lg:mx-0 hover:underline bg-white text-gray-800 font-bold rounded-full py-3 px-5 shadow opacity-75 focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out text-sm hover:bg-gray-200 hover:text-gray-900">Your potions</a>
+
+            </li>
+            <li class="mr-3">
+              <a href="../Rankings/index.html" target="_self" class="mx-auto lg:mx-0 hover:underline bg-white text-gray-800 font-bold rounded-full py-3 px-5 shadow opacity-75 focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out text-sm hover:bg-gray-200 hover:text-gray-900">Leaderboards</a>
+
+            </li>
+            <li class="mr-3">
+              <a href="../DisposalPage/index.html" target="_self" class="mx-auto lg:mx-0 hover:underline bg-white text-gray-800 font-bold rounded-full py-3 px-5 shadow opacity-75 focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out text-sm hover:bg-gray-200 hover:text-gray-900">Hire a Waste Wizard</a>
+            </li>
+            <li class="mr-3">
+
+              <a href="../MarketplacePage/index.html" target="_self" class="mx-auto lg:mx-0 hover:underline bg-white text-gray-800 font-bold rounded-full py-3 px-5 shadow opacity-75 focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out text-sm hover:bg-gray-200 hover:text-gray-900">Marketplace</a>
+            </li>
+            <li class="mr-3">
+
+              <a href="../GarbageIdentifierPage/index.html" target="_self" class="mx-auto lg:mx-0 hover:underline bg-white text-gray-800 font-bold rounded-full py-3 px-5 shadow opacity-75 focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out text-sm hover:bg-gray-200 hover:text-gray-900">Identify trash</a>
+            </li>
+          </ul>
+        </div>
+    </nav>
     
     <!-- Hero section -->
     <div class="h-24">
@@ -88,20 +81,18 @@
       </ul>
       <ul class="list-reset lg:flex justify-center flex-1 items-center" style="margin-top: -2rem;">
         <section id="booking" class="text-center">
-          <h2 class="text-3xl font-semibold text-gray-800">Programați ridicarea deșeurilor:</h2>
-          <form id="bookingForm" class="w-full max-w-md mx-auto"> <!-- Added max width for fixed width -->
-            <label for="pickupDate" class="mb-4">Data ridicării:</label>
-            <input type="date" id="pickupDate" required class="p-4 mb-4 block border border-gray-300 rounded-md fixed-width">
-            <label for="pickupTime" class="mb-4">Ora ridicării:</label>
-            <input type="time" id="pickupTime" required class="p-4 mb-4 block border border-gray-300 rounded-md fixed-width">
-            <label for="streetAddress" class="mb-4">Adresa Actuala:</label>
-            <input id="streetAddress" required class="p-4 mb-4 block border border-gray-300 rounded-md fixed-width">
-            <button type="submit" class="p-4 bg-gray-900 text-white block mx-auto rounded-md focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-opacity-50">Programează</button>
-          </form>
-          <div id="bookingMessage"></div>
-        </section>
-      </ul>
-    </section>  
+            <h2 class="text-3xl font-semibold text-gray-800">Programați ridicarea deșeurilor:</h2>
+            <form id="bookingForm" class="w-full max-w-md mx-auto text-right"> <!-- Adjusted for right-aligned text -->
+              <label for="pickupDate" class="inline-block mb-4 w-full text-center">Data ridicării:</label>
+              <input type="date" id="pickupDate" required class="p-4 mb-4 block border border-gray-300 rounded-md w-full">
+              <label for="pickupTime" class="inline-block mb-4 w-full text-center">Ora ridicării:</label>
+              <input type="time" id="pickupTime" required class="p-4 mb-4 block border border-gray-300 rounded-md w-full">
+              <label for="streetAddress" class="inline-block mb-4 w-full text-center">Adresa Actuala:</label>
+              <input id="streetAddress" required class="p-4 mb-4 block border border-gray-300 rounded-md w-full">
+              <button type="submit" class="p-4 bg-gray-900 text-white block mx-auto rounded-md focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-opacity-50">Programează</button>
+            </form>
+            <div id="bookingMessage"></div>
+          </section>
 <script src="script.js"></script>
 </body>
 </html>
