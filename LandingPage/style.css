@@ -1,0 +1,56 @@
+#map { position: absolute; top: 0; bottom: 0; width: 100%; }
+body {
+    margin: 0;
+    padding: 0;
+    background-image: url('Images/logo.jpeg'); /* înlocuiți path_to_your_image cu calea către imaginea dvs. */
+    background-size: 50%;
+    background-position: bottom;
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.5); /* culoarea fundalului suprapus */
+}
+
+.overlay-content {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+    color: white;
+    padding-bottom: 20px; /* Spatiu pentru margini */
+    z-index: 1; /* Asigură că textul este suprapus peste fundal */
+}
+
+.overlay-content h1 {
+    font-size: 3em;
+    margin-bottom: 0.5em;
+}
+
+.overlay-content p {
+    font-size: 1.5em;
+    margin-top: 0;
+}
+
+.container_test {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    box-sizing: border-box;
+    z-index: 2; /* Asigură că containerul este suprapus peste hartă */
+}
+
+.container-content {
+    text-align: center;
+    color: black;
+    font-size: 1.5em;
+    /* Alte stilizări pentru conținutul containerului */
+}
