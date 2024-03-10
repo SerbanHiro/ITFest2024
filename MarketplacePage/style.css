@@ -39,12 +39,6 @@ ul {
     padding: 0;
 }
 
-li {
-    margin-bottom: 20px;
-    border: 1px solid #ccc;
-    padding: 10px;
-}
-
 li img {
     max-width: 100px;
 }
@@ -74,4 +68,20 @@ li img {
 .tabcontent {
     display: none;
     padding: 20px;
+}
+
+.container_test {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    box-sizing: border-box;
+    z-index: 2; /* Asigură că containerul este suprapus peste hartă */
+}
+
+.container-content {
+    text-align: center;
+    color: black;
+    font-size: 1.5em;
+    /* Alte stilizări pentru conținutul containerului */
 }
