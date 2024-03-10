@@ -2,7 +2,7 @@
 body {
     margin: 0;
     padding: 0;
-    background-image: url('Images/logo.jpeg'); /* înlocuiți path_to_your_image cu calea către imaginea dvs. */
+    background-image: url('../Images/logo.jpeg'); /* înlocuiți path_to_your_image cu calea către imaginea dvs. */
     background-size: 50%;
     background-position: bottom;
 }

@@ -121,70 +121,66 @@ var userLng=-1;
 var tempLat=-1;
 var tempLng=-1;
 
+function flyToPlaceFromAlgo(matPubele) {
+    navigator.geolocation.getCurrentPosition(async function(position) {
+        const userLat = position.coords.latitude;
+        const userLng = position.coords.longitude;
+
+        // Funcția pentru calcularea distanței dintre două puncte pe sferă (Haversine formula)
+        function haversineDistance(lat1, lon1, lat2, lon2) {
+            const R = 6371; // Raza Pământului în kilometri
+            const dLat = (lat2 - lat1) * Math.PI / 180;
+            const dLon = (lon2 - lon1) * Math.PI / 180;
+            const a =
+                Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+                Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
+                Math.sin(dLon / 2) * Math.sin(dLon / 2);
+            const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+            const d = R * c; // Distanta in km  
+            return d;
+        }
+
+        // Cel mai mare număr posibil pentru distanță
+        let minDistance = Number.MAX_VALUE;
+        // Pubela cea mai apropiată
+        let nearestBin;
+
+        // Iterăm prin toate pubelile de sticlă pentru a găsi cea mai apropiată
+        for (const bin of matPubele) {
+            if(bin.lngLat[0] == undefined || bin.lngLat[1] == undefined) continue;
+            const distance = haversineDistance(userLat, userLng, bin.lngLat[1], bin.lngLat[0]);
+            if (distance < minDistance) {
+                minDistance = distance;
+                nearestBin = bin;
+            }
+        }
+
+        console.log(nearestBin);
+
+        tempLat = nearestBin.lngLat[1];
+        tempLng = nearestBin.lngLat[0];
+
+        console.log("Cea mai aproCoordonatelepiată pubelă de sticlă este la o distanță de: " + minDistance.toFixed(2) + " km");
+        console.log(" publei: Latitudine - " + nearestBin.lngLat[1] + ", Longitudine - " + nearestBin.lngLat[0]);
+
+        return [tempLat,tempLng];
+    });
+    return [-1,-1];
+}
+
 window.onload = async function() {
     let path = window.location.href;
     if(!path.includes("?")) return;
     var material = path.split("?")[1];
     switch(material.toLowerCase()) {
-        case "glass":  {
-            if ("geolocation" in navigator) {
-                navigator.geolocation.getCurrentPosition(async function(position) {
-                    const userLat = position.coords.latitude;
-                    const userLng = position.coords.longitude;
-
-                    // Funcția pentru calcularea distanței dintre două puncte pe sferă (Haversine formula)
-                    function haversineDistance(lat1, lon1, lat2, lon2) {
-                        const R = 6371; // Raza Pământului în kilometri
-                        const dLat = (lat2 - lat1) * Math.PI / 180;
-                        const dLon = (lon2 - lon1) * Math.PI / 180;
-                        const a =
-                            Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-                            Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
-                            Math.sin(dLon / 2) * Math.sin(dLon / 2);
-                        const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-                        const d = R * c; // Distanta in km  
-                        return d;
-                    }
-
-                    // Cel mai mare număr posibil pentru distanță
-                    let minDistance = Number.MAX_VALUE;
-                    // Pubela cea mai apropiată
-                    let nearestBin;
-
-                    // Iterăm prin toate pubelile de sticlă pentru a găsi cea mai apropiată
-                    for (const bin of pubeleSticla) {
-                        const distance = haversineDistance(userLat, userLng, bin.lngLat[1], bin.lngLat[0]);
-                        if (distance < minDistance) {
-                            minDistance = distance;
-                            nearestBin = bin;
-                        }
-                    }
-
-                    console.log(nearestBin);
-
-                    tempLat = nearestBin.lngLat[1];
-                    tempLng = nearestBin.lngLat[0];
-                    
-                    // map.flyTo({
-                    //     center: [nearestBin.lngLat[1], nearestBin.lngLat[0]], // Coordonatele markerului pubelii de sticlă
-                    //     zoom: 15, // Nivelul de zoom al hărții
-                    //     essential: true // Indicăm că este o acțiune esențială pentru harta
-                    // });
-
-                    // nearestBin conține acum cea mai apropiată pubelă de sticlă
-                    console.log("Cea mai apropiată pubelă de sticlă este la o distanță de: " + minDistance.toFixed(2) + " km");
-                    console.log("Coordonatele publei: Latitudine - " + nearestBin.lngLat[1] + ", Longitudine - " + nearestBin.lngLat[0]);
-                });
-            } else {
-                console.log("Geolocation nu este suportat de acest browser.");
-            }
-        }
+        case "glass":  
+            flyToPlaceFromAlgo(pubeleSticla);
             break;
-        case "plastic":
+        case "plastic": 
         case "metal":
         case "paper":
         case "cardboard":
-
+            flyToPlaceFromAlgo(pubeleReciclabil);
             break;
         case "shoes":
         case "clothes":
