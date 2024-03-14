@@ -263,7 +263,7 @@ function success(position) {
         }
     });
 
-const numMarkers = 750;
+const numMarkers = 1200;
 // Generăm markerii în interiorul poligonului Timișoarei
 for (let i = 0; i < numMarkers; i++) {
     const randomLng = Math.random() * (maxLng - minLng) + minLng;
